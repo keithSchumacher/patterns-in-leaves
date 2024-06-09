@@ -1,0 +1,16 @@
+/* textures.css */
+.noise-effect {
+    filter: url(#noiseFilter);
+}
+
+/* Define the SVG filter in the HTML itself or embed it within the CSS as a data URI */
+.svg-filters {
+    height: 0;
+    width: 0;
+    position: absolute;
+}
+
+.svg-filters svg {
+    height: 100%;
+    width: 100%;
+}
