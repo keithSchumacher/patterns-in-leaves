@@ -36,6 +36,7 @@ body::before {
   bottom: 0;
   background-image: url("../../buckram_texture.png");
   background-repeat: repeat;
+  filter: saturate(140%); /* Reduce saturation to make the image less vivid */
   background-size: 45% 45%; /* Shrink the image to 50% of its original width and height */
   opacity: 0.7; /* Set the desired opacity level */
   z-index: -1; /* Set behind the content */
