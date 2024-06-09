@@ -1,5 +1,12 @@
-body {
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-image: url('../../public/handbook_of_stochastic_methods.png');
     background-repeat: repeat;
-
+    opacity: 0.7; /* Adjust opacity to make the background subtler */
+    z-index: -1;
 }
