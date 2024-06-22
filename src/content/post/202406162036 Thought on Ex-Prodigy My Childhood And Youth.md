@@ -43,7 +43,7 @@ I am curious of what evidence exists for Wiener’s observation. Was immigration
 - [ ] Analyze census data and write a post about changing cost of household labor
 
 ## Goettingen 
-Wiener seemed to be entranced with Goettingen during his 1st visit there in 1914-1915. He speaks romantically of "traipsing across the town to Rohn's cafe in a beautiful park at the top of a hill overlooking the town". Unfortunately, traveling from Stuttgart to Goettingen is surprisingly expensive ($\euro$ 300 for two people round trip). One day I would like to find the park on the hill overlooking the town.  
+Wiener seemed to be entranced with Goettingen during his 1st visit there in 1914-1915. He speaks romantically of "traipsing across the town to Rohn's cafe in a beautiful park at the top of a hill overlooking the town". Unfortunately, traveling from Stuttgart to Goettingen is surprisingly expensive ($300 for two people round trip). One day I would like to find the park on the hill overlooking the town.  
 - [ ] Visit Goettingen and try to find the spot of Rohn’s cafe
 
 
