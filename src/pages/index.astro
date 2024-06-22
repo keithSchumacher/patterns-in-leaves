@@ -8,17 +8,9 @@ const allPosts = await getCollection("post");
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <!-- Adobe Fonts -->
     <link rel="stylesheet" href="https://use.typekit.net/kgy5xxh.css" />
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Znamenny+Musical+Notation&display=swap"
-      rel="stylesheet"
-    />
-
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>Patterns in Leaves</title>
@@ -32,8 +24,8 @@ const allPosts = await getCollection("post");
         {
           allPosts.map((post) => (
             <li>
-              <p>{post.data.created}</p>
-              <a href={`${post.slug}`}>post 1</a>
+              <a href={`${post.slug}`}>{post.data.title}</a>
+              <p>{post.data.description}</p>
             </li>
           ))
         }

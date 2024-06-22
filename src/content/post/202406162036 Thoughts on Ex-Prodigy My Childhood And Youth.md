@@ -13,7 +13,7 @@ website_tags:
   - Education
   - Places
 title: "Thoughts on: Ex-Prodigy My Childhood And Youth by Norbert Wiener"
-description: Scattered reflections on the book and the power of reading biographies. 
+description: Scattered reflections on the book and the utility of reading biographies. 
 ---
 
 ## Broad Thoughts
