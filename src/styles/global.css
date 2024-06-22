@@ -1,43 +1,97 @@
-html,
-body {
-  height: 100%; /* Ensure both html and body cover the full height */
-  margin: 0; /* Reset default margins */
-  padding: 0; /* Reset default padding */
-  overflow-x: hidden; /* Prevent horizontal overflow */
+/*
+  The CSS in this style tag is based off of Bear Blog's default CSS.
+  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
+  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
+ */
+
+html {
+	scrollbar-gutter: stable;
 }
 
 body {
-  position: relative; /* Needed for absolute positioning of pseudo-elements */
+	font-family: "heebo", sans-serif;
+	margin: auto;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	padding-bottom: 2rem;
+	text-align: left;
+	background-color: #fff;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	line-height: 1.5;
+	color: #444;
+	font-size: 14pt;
+}
+
+@media only screen and (min-width: 750px) {
+	body {
+		max-width: 750px;
+	}
 }
 
 h1 {
   font-family: "antique-olive-condensed", sans-serif;
   font-weight: 700;
   font-style: normal;
+} 
+
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: #111;
+		color: #b6b8d6
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	strong,
+	b {
+		color: #fff;
+	}
+
+	a {
+		color: #9e98f2;
+	}
+
+	code {
+		background-color: #000000;
+	}
+
+	/* .kroki svg {
+		filter: invert(100%);
+	}
+
+	.p-category {
+		color: #000;
+		background-color: #9e98f2;
+	} */
 }
 
-a,
+/* a,
 h2 {
   font-family: "Noto Znamenny Musical Notation", sans-serif;
-}
+} */
 
-p {
+/* p {
   font-family: "heebo", sans-serif;
   font-weight: 300;
   font-style: normal;
-}
+} */
 
-body::before {
-  content: ""; /* Required for the pseudo-element to work */
-  position: absolute; /* Position it over the body */
+/* body::before {
+  content: ""; 
+  position: absolute; 
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-image: url("../../buckram_texture.png");
   background-repeat: repeat;
-  filter: saturate(140%); /* Reduce saturation to make the image less vivid */
-  background-size: 45% 45%; /* Shrink the image to 50% of its original width and height */
-  opacity: 0.7; /* Set the desired opacity level */
-  z-index: -1; /* Set behind the content */
-}
+  filter: saturate(140%); 
+  background-size: 45% 45%; 
+  opacity: 0.7;
+  z-index: -1; 
+} */
