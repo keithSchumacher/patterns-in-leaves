@@ -31,8 +31,7 @@ body {
 
 h1 {
   font-family: "antique-olive-condensed", sans-serif;
-  font-weight: 700;
-  font-style: normal;
+  letter-spacing: 0.05em;
 } 
 
 @media (prefers-color-scheme: dark) {

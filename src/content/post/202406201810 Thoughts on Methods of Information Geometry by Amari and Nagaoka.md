@@ -10,9 +10,9 @@ website_tags:
   - Blog
   - Book Reflection
   - Mathematics
+title: "Thoughts on: Methods of Information Geometry by Amari and Nagaoka"
+description: Discussion of my effort to establish an independent and rewarding math hobby. Questions, tangents, and excerises inspired by chapter 1.
 ---
-
-# 202406201810 Thoughts on Methods of Information Geometry by Amari and Nagaoka
 
 My interest in information geometry was sparked by a conversation with ChatGPT. We were discussing information spread in complex environments such as drone swarms and coupled dynamical systems. I wanted to model the information and environment using a similar  framework used to construct exciton-phonon systems. 
 

@@ -12,6 +12,8 @@ const postCollection = defineCollection({
     publish: z.boolean(), // Boolean to check if it should be published
     website_tags: z.array(z.string()), // Array of strings for website tags
     image: z.string().optional(),
+    title: z.string(),
+    description: z.string(),
   }),
 });
 // 3. Export a single `collections` object to register your collection(s)

@@ -12,21 +12,19 @@ website_tags:
   - Book Reflection
   - Education
   - Places
-
+title: "Thoughts on: Ex-Prodigy My Childhood And Youth by Norbert Wiener"
+description: Scattered reflections on the book and the power of reading biographies. 
 ---
 
-
-# 202406162036 Thoughts on Ex-Prodigy My Childhood And Youth by Norbert Wiener
-
 ## Broad Thoughts
-The first volume of Norbert Wiener's autobiography, Ex-Prodigy: My Childhood and Youth, is the 2nd autobiography I've read based on John Taylor Gatto's [recommendation](https://youtu.be/pik2WVzPtd0?si=flJzRUJ8HvFd2s2K). Gatto recommends reading to children hundreds of biographies at an early age. He believes biographies can instill within the young mind the connection between past, present, and future. That the future is being written with every passing moment. That as the author of one's own life, the child can control their life's arc through their actions in the present moment. 
+The first volume of Norbert Wiener's autobiography, Ex-Prodigy: My Childhood and Youth, is the 2nd autobiography I've read based on John Taylor Gatto's recommendation to read hundreds of biographies to children at an early age. He believes biographies can instill within the young mind the connection between past, present, and future. That the future is being written with every passing moment. That as the author of one's own life, the child can control their life's arc through their actions in the present moment. 
 
 There are more obvious benefits as well. Such as seeing examples of: 
 - Career and professional  options
 - Familial, romantic, and platonic relationships; their origins, challenges, potentials and tragedies
 - Late-life reflections
 
-My interest in reading these biographies for myself, before I (hopefully) have a child, is to essentially vet this educational recipe of Gatto's. Further, the discussion, organization, and compilation of educational and child-rearing 'recipes', is one of my ambitious goals for this website. 
+My interest in reading these biographies for myself, before I (hopefully) have a child, is to essentially vet this educational recipe of Gatto's. Further, the discussion, organization, and compilation of educational and child-rearing 'recipes', is one of my ambitious goals for Patterns in Leaves. 
 
 My early thoughts on the 'Read Many Biographies' recipe reinforces my gut reaction upon hearing Gatto speak of the technique; it is a common sense method for achieving a profound effect. My other impression is that I am actually enacting within myself the effect I wish the recipe to have on my future child. I think the reason Gatto's words on the importance of understanding the mechanics of a life arc are resonating with me is because I know it is a lesson I have never learned. 
 
