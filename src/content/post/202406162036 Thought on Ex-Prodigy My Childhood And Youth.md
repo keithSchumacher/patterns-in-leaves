@@ -19,7 +19,7 @@ website_tags:
 # 202406162036 Thoughts on Ex-Prodigy My Childhood And Youth by Norbert Wiener
 
 ## Broad Thoughts
-The first volume of Norbert Wiener's autobiography, Ex-Prodigy: My Childhood and Youth, is the 2nd autobiography I've read based on John Taylor Gatto's [recommendation] (https://youtu.be/pik2WVzPtd0?si=flJzRUJ8HvFd2s2K). Gatto recommends reading to children hundreds of biographies at an early age. He believes biographies can instill within the young mind the connection between past, present, and future. That the future is being written with every passing moment. That as the author of one's own life, the child can control their life's arc through their actions in the present moment. 
+The first volume of Norbert Wiener's autobiography, Ex-Prodigy: My Childhood and Youth, is the 2nd autobiography I've read based on John Taylor Gatto's [recommendation](https://youtu.be/pik2WVzPtd0?si=flJzRUJ8HvFd2s2K). Gatto recommends reading to children hundreds of biographies at an early age. He believes biographies can instill within the young mind the connection between past, present, and future. That the future is being written with every passing moment. That as the author of one's own life, the child can control their life's arc through their actions in the present moment. 
 
 There are more obvious benefits as well. Such as seeing examples of: 
 - Career and professional  options
