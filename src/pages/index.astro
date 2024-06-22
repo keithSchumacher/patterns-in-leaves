@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import { getCollection } from "astro:content";
+const allPosts = await getCollection("post");
 ---
 
 <html lang="en">
@@ -27,19 +29,16 @@ import "../styles/global.css";
       <h1>Patterns in Leaves</h1>
 
       <a href="/">Home</a>
-      <a href="/about/">About</a>
-      <h2>Home Page</h2>
-      <!-- <h2>... and my new Astro site!</h2> -->
-
-      <!-- <p>
-        I am working through Astro's introductory tutorial. This is the second
-        page on my website, and it's the first one I built myself!
-      </p>
-
-      <p>
-        This site will update as I complete more of the tutorial, so keep
-        checking back and see how my journey is going!
-      </p> -->
+      <ul>
+        {
+          allPosts.map((post) => (
+            <li>
+              <p>{post.data.created}</p>
+              <a href={`${post.slug}`}>post 1</a>
+            </li>
+          ))
+        }
+      </ul>
     </body>
   </body>
 </html>
