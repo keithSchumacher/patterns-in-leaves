@@ -1,28 +1,32 @@
-// Import the necessary modules and types from unified, remark-parse, and remark-stringify
-import { unified } from "unified";
-import remarkParse from "remark-parse";
-import remarkStringify from "remark-stringify";
 import { visit } from "unist-util-visit";
-import type { Root } from "mdast";
+import type { Root, Node, Parent } from "mdast";
 
-// https://github.com/syntax-tree/mdast?tab=readme-ov-file#listitem-gfm
-// When using GFM, the todo item gets converted into a 'checked' property on the ListItem
-// So removing TODOs, requires checking this attribute because '[ ]' will not appear in the text.
-
-// Define the custom remark plugin for increasing headings
+// Custom remark plugin to remove TODO items (ie GitHub Flavored Markdown task lists)
 export default function remarkIgnoreTODO() {
   return function (tree: Root) {
-    visit(tree, "list", (node, index, parent) => {
-      for (
-        let listIndex = node.children.length - 1;
-        listIndex >= 0;
-        listIndex--
-      ) {
-        const listItem = node.children[listIndex];
-        if (listItem.checked !== null) {
-          node.children.splice(listIndex, 1);
-        }
-      }
-    });
+    visit(tree, "listItem", visitor, true); // Reverse traversal
   };
+
+  // Visitor function to handle each list item
+  function visitor(
+    node: ListItemGfm,
+    index: number | undefined,
+    parent: Parent | undefined
+  ) {
+    if (node.type === "listItem" && node.checked !== null) {
+      if (parent && typeof index === "number") {
+        parent.children.splice(index, 1); // Remove the node
+        return index; // Return the new index to adjust the visitor
+      }
+    }
+  }
+
+  // Extending the ListItem type for GitHub Flavored Markdown (GFM) specifics
+  interface ListItemGfm extends Node {
+    checked?: boolean | null; // Optional boolean to indicate checked state
+  }
+
+  // Additional context for ListItemGFM
+  // See: https://github.com/syntax-tree/mdast?tab=readme#listitem-gfm
+  // In GFM, a todo item is converted into a 'checked' property on the ListItem
 }
