@@ -13,11 +13,16 @@ import type { Root } from "mdast";
 export default function remarkIgnoreTODO() {
   return function (tree: Root) {
     visit(tree, "list", (node, index, parent) => {
-      node.children.forEach((listItem, listIndex) => {
+      for (
+        let listIndex = node.children.length - 1;
+        listIndex >= 0;
+        listIndex--
+      ) {
+        const listItem = node.children[listIndex];
         if (listItem.checked !== null) {
-          parent?.children.splice(index, 1); // Remove the node from its parent
+          node.children.splice(listIndex, 1);
         }
-      });
+      }
     });
   };
 }
