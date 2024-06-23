@@ -1,45 +1,35 @@
 ---
 import "../styles/global.css";
+import { getCollection } from "astro:content";
+const allPosts = await getCollection("post");
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <!-- Adobe Fonts -->
     <link rel="stylesheet" href="https://use.typekit.net/kgy5xxh.css" />
-    <link rel="stylesheet" href="https://use.typekit.net/kgy5xxh.css" />
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Znamenny+Musical+Notation&display=swap"
-      rel="stylesheet"
-    />
-
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>Patterns in Leaves</title>
   </head>
   <body>
     <body>
-      <h1>Patterns in Leaves</h1>
-
-      <a href="/">Home</a>
-      <a href="/about/">About</a>
-      <h2>Home Page</h2>
-      <!-- <h2>... and my new Astro site!</h2> -->
-
-      <!-- <p>
-        I am working through Astro's introductory tutorial. This is the second
-        page on my website, and it's the first one I built myself!
-      </p>
-
-      <p>
-        This site will update as I complete more of the tutorial, so keep
-        checking back and see how my journey is going!
-      </p> -->
+      <a href="/">
+        <h1>Patterns in Leaves</h1>
+      </a>
+      <ul>
+        {
+          allPosts.map((post) => (
+            <li>
+              <a href={`${post.slug}`}>{post.data.title}</a>
+              <p>{post.data.description}</p>
+            </li>
+          ))
+        }
+      </ul>
     </body>
   </body>
 </html>
