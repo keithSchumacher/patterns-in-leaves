@@ -51,4 +51,3 @@ Wiener seemed to be entranced with Goettingen during his 1st visit there in 1914
 - [ ] find data that substantiates wiener's claims (https://www.census.gov/programs-surveys/decennial-census/decade/decennial-publications.1900.html)
 - [ ] Update Goettingen section with photo
 - [x] Proofread before post
-- Test item in list that doesn't have todo

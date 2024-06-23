@@ -13,10 +13,9 @@ export default function remarkIgnoreTODO() {
     index: number | undefined,
     parent: Parent | undefined
   ) {
-    if (node.type === "listItem" && node.checked !== null) {
+    if (node.checked !== null) {
       if (parent && typeof index === "number") {
         parent.children.splice(index, 1); // Remove the node
-        return index; // Return the new index to adjust the visitor
       }
     }
   }
