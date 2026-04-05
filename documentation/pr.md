@@ -6,10 +6,8 @@ This PR brings the **patterns-in-leaves** personal blog site back up to date aft
 
 ### 1. Understand and document how the site works
 
-The default Astro starter README is still in place; operational knowledge has faded. This step:
-
 - Maps the real layout: content location, routing, layouts, build and deploy assumptions.
-- Expands project documentation (within this PR or follow-up as appropriate) so future changes are easier—without turning the repo into a manual nobody reads.
+- Expands project documentation so future changes are easier—without turning the repo into a manual nobody reads.
 
 ### 2. Security and dependency hygiene
 
@@ -22,6 +20,24 @@ Address issues surfaced by maintenance tooling and bring the stack current:
 ### 3. Add a new blog post
 
 Publish at least one new post through the existing content pipeline so the site reflects current use, and so the upgraded toolchain is validated end-to-end.
+
+## Completed in this PR
+
+### Documentation (goal 1)
+
+- Replaced the Astro starter **README** with a project-specific guide: content collections, routing, Markdown pipeline (remark-math, rehype-katex, custom remark plugin), styling, GitHub Pages deploy.
+- Fixed invalid nested **`body`** markup in `src/pages/index.astro`.
+
+### Dependencies & Astro upgrade (goal 2)
+
+- Upgraded to **Astro 6.x**, current **@astrojs/check**, **@astrojs/sitemap**, **TypeScript**, **rehype-katex**, **prettier-plugin-astro**, and regenerated **package-lock.json**.
+- **Node 22+** required for Astro 6: added **`engines`** in `package.json`, **`.nvmrc`**, and **`node-version: 22`** on **`withastro/action`** in the GitHub Pages workflow.
+- Migrated content collections to the **Content Layer** API: **`src/content.config.ts`** with `glob()` loader (replaces `src/content/config.ts`); pages use **`entry.id`** and **`render()`** from `astro:content`; index sorts posts by **`created`** and uses root-relative **`/${post.id}`** links.
+- **`npm audit`**: previous high-severity **Astro 4.x** advisories are cleared by upgrading. **5 moderate** findings remain, all transitive (**`@astrojs/check` → yaml-language-server → yaml**); no safe non-breaking fix until upstream; re-run **Dependabot** after merge to refresh alerts.
+
+### Remaining
+
+- **Goal 3**: add at least one new post under `src/content/post/`.
 
 ## Out of scope (unless discovered as blocking)
 
