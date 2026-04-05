@@ -53,7 +53,7 @@ Configured in `astro.config.mjs`:
 ## Build and deploy
 
 - **Local:** `npm install`, `npm run dev` (dev server), `npm run build` (runs `astro check` then `astro build`). Output: `dist/`.
-- **CI:** Pushing to **`main`** runs `.github/workflows/deploy.yml`: `withastro/action@v2` builds and uploads artifacts; `deploy-pages` publishes to **GitHub Pages**. Custom domain is enforced via `public/CNAME` (`patterns-in-leaves.com`).
+- **CI:** Pushing to **`main`** runs `.github/workflows/deploy.yml` (`actions/checkout`, `withastro/action`, `actions/deploy-pages`) to build and publish **GitHub Pages**. Custom domain is enforced via `public/CNAME` (`patterns-in-leaves.com`).
 
 ## Mental model
 
