@@ -1,13 +1,13 @@
 # How this site works
 
-**Patterns in Leaves** is a static blog built with [Astro](https://astro.build/) 4.x. Content lives in a Markdown **content collection**; pages are generated at build time. The production site is **https://patterns-in-leaves.com** (see `astro.config.mjs` `site` and `public/CNAME`).
+**Patterns in Leaves** is a static blog built with [Astro](https://astro.build/) 6.x (Node 22+). Content lives in a Markdown **content collection**; pages are generated at build time. The production site is **https://patterns-in-leaves.com** (see `astro.config.mjs` `site` and `public/CNAME`).
 
 ## Project layout
 
 | Path | Role |
 |------|------|
 | `src/content/post/` | Blog posts as `.md` files with YAML front matter |
-| `src/content/config.ts` | Zod schema for the `post` collection |
+| `src/content.config.ts` | Content Layer config: `post` collection + Zod schema |
 | `src/pages/index.astro` | Home page: lists all posts |
 | `src/pages/[...slug].astro` | Catch-all route: one HTML page per post |
 | `src/layouts/MarkdownPostLayout.astro` | Shell `<html>` for individual posts (fonts, KaTeX CSS) |
@@ -20,17 +20,17 @@
 
 Posts are registered under the collection name **`post`** (directory `src/content/post/`).
 
-Required front matter fields are defined in `src/content/config.ts`:
+Required front matter fields are defined in `src/content.config.ts`:
 
 - **`title`**, **`description`** — Used on the index and for metadata-style use.
-- **`created`**, **`modified`** — Dates (ISO strings in front matter work with `z.date()`).
+- **`created`**, **`modified`** — Dates (ISO strings in front matter are coerced via `z.coerce.date()`).
 - **`subject_tags`**, **`website_tags`** — String arrays for categorization (not heavily used in templates yet).
 - **`note_type`** — Free-form string (e.g. `post`).
 - **`publish`** — Boolean. **Note:** Pages and the index currently call `getCollection("post")` without filtering; every file in the folder is built. To hide a draft, remove it from the collection folder or add a `filter` in `getCollection`/`getStaticPaths` (future improvement).
 
 Optional: **`image`**.
 
-The URL path for a post is the entry’s **`slug`**, which Astro derives from the **filename** (without extension). Example: `202406162036 Thoughts on Ex-Prodigy….md` → a slug based on that string. Choose filenames deliberately so URLs stay stable.
+The URL path for a post is the collection entry’s **`id`** (Content Layer), derived from the **filename** (without extension). Example: `202406162036 Thoughts on Ex-Prodigy….md` → `202406162036-thoughts-on-ex-prodigy-…`. Choose filenames deliberately so URLs stay stable.
 
 ## Markdown pipeline
 

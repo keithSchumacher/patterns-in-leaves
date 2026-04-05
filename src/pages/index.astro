@@ -1,7 +1,10 @@
 ---
 import "../styles/global.css";
 import { getCollection } from "astro:content";
-const allPosts = await getCollection("post");
+
+const allPosts = (await getCollection("post")).sort(
+  (a, b) => b.data.created.valueOf() - a.data.created.valueOf()
+);
 ---
 
 <html lang="en">
@@ -23,7 +26,7 @@ const allPosts = await getCollection("post");
       {
         allPosts.map((post) => (
           <li>
-            <a href={`${post.slug}`}>{post.data.title}</a>
+            <a href={`/${post.id}`}>{post.data.title}</a>
             <p>{post.data.description}</p>
           </li>
         ))
