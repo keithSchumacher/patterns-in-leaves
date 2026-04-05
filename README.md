@@ -39,6 +39,7 @@ Configured in `astro.config.mjs`:
 - **`remark-math`** — Parses `$...$` / `$$...$$` (and similar) for math.
 - **`rehype-katex`** — Renders math with KaTeX. Post layout loads KaTeX CSS from jsDelivr.
 - **Custom `remark-ignore-todo`** (`src/remark-ignore-todo.ts`) — Strips GFM task-list items (`- [ ]` / `- [x]`) from the AST so checklists do not appear in the HTML output.
+- **Custom `rehype-footnote-label-a11y`** (`src/rehype-footnote-label-a11y.ts`) — GFM always injects a footnote section title in HTML; this replaces it with a screen-reader-only `span#footnote-label` so you can add your own visible `## Footnotes` (or any heading) in the `.md` per post without a duplicate title.
 
 ## Integrations
 
