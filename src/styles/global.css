@@ -32,7 +32,47 @@ body {
 h1 {
   font-family: "antique-olive-condensed", sans-serif;
   letter-spacing: 0.05em;
-} 
+}
+
+/* Prose inline code — not Shiki fenced blocks; match body color, subtle fill only */
+@media (prefers-color-scheme: light) {
+	:not(pre) > code {
+		font-weight: 400;
+		color: inherit;
+		background-color: rgba(0, 0, 0, 0.06);
+		padding: 0.12em 0.35em;
+		border-radius: 4px;
+		font-size: 0.92em;
+	}
+}
+
+/*
+ * Shiki fenced blocks (Markdown). Astro uses .astro-code; dual themes need
+ * dark overrides — https://docs.astro.build/en/guides/syntax-highlighting/
+ */
+pre.astro-code {
+	font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+	padding: 1rem 1.15rem;
+	margin: 1rem 0;
+	border-radius: 8px;
+	overflow-x: auto;
+	font-size: 0.88rem;
+	line-height: 1.5;
+}
+
+pre.astro-code code {
+	font-family: inherit;
+	background: transparent !important;
+	padding: 0;
+	border-radius: 0;
+	font-size: inherit;
+	color: inherit;
+}
+
+/* Footnote jump targets: keep anchors slightly below the viewport edge */
+.footnotes li {
+	scroll-margin-top: 1.25rem;
+}
 
 @media (prefers-color-scheme: dark) {
 	body {
@@ -55,8 +95,23 @@ h1 {
 		 color: #77F9F8;/* neon cyan looks pretty good*/
 	}
 
-	code {
-		background-color: #000000;
+	/* Inline code: same hue as body text; subtle chip, not bright white */
+	:not(pre) > code {
+		font-weight: 400;
+		color: inherit;
+		background-color: rgba(182, 184, 214, 0.12);
+		padding: 0.12em 0.35em;
+		border-radius: 4px;
+		font-size: 0.92em;
+	}
+
+	.astro-code,
+	.astro-code span {
+		color: var(--shiki-dark) !important;
+		background-color: var(--shiki-dark-bg) !important;
+		font-style: var(--shiki-dark-font-style) !important;
+		font-weight: var(--shiki-dark-font-weight) !important;
+		text-decoration: var(--shiki-dark-text-decoration) !important;
 	}
 
 	/* .kroki svg {
