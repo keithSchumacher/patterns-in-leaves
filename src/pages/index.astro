@@ -16,20 +16,18 @@ const allPosts = await getCollection("post");
     <title>Patterns in Leaves</title>
   </head>
   <body>
-    <body>
-      <a href="/">
-        <h1>Patterns in Leaves</h1>
-      </a>
-      <ul>
-        {
-          allPosts.map((post) => (
-            <li>
-              <a href={`${post.slug}`}>{post.data.title}</a>
-              <p>{post.data.description}</p>
-            </li>
-          ))
-        }
-      </ul>
-    </body>
+    <a href="/">
+      <h1>Patterns in Leaves</h1>
+    </a>
+    <ul>
+      {
+        allPosts.map((post) => (
+          <li>
+            <a href={`${post.slug}`}>{post.data.title}</a>
+            <p>{post.data.description}</p>
+          </li>
+        ))
+      }
+    </ul>
   </body>
 </html>
