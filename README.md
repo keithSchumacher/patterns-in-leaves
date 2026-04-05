@@ -61,4 +61,4 @@ Configured in `astro.config.mjs`:
 2. `getStaticPaths` in `[...slug].astro` builds a route per entry; `index.astro` lists the same collection.
 3. `npm run build` produces static files; GitHub Actions deploys them on `main`.
 
-For dependency upgrades, security fixes, and editorial workflow, see the active PR description in `documentation/pr.md`.
+For dependency upgrades, security fixes, and editorial workflow, see `documentation/revive-blog-docs-deps-post.md` (PR body for branch `revive-blog-docs-deps-post`).
