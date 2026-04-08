@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SocialLinks from "../components/SocialLinks.astro";
+
+const title = "About — Patterns in Leaves";
+const description =
+  "About Keith Schumacher: software, writing, and how to connect.";
+---
+
+<BaseLayout {title} {description}>
+  <article class="about-prose">
+    <h1>About</h1>
+    <p>
+      Hi, I’m <strong>Keith Schumacher</strong>. I share notes, essays, and
+      projects here under the name
+      <em>Patterns in Leaves</em>
+    </p>
+    <h2>Connect</h2>
+    <SocialLinks />
+  </article>
+</BaseLayout>

@@ -1,36 +1,24 @@
 ---
-import "../styles/global.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 
 const allPosts = (await getCollection("post")).sort(
-  (a, b) => b.data.created.valueOf() - a.data.created.valueOf()
+  (a, b) => b.data.created.valueOf() - a.data.created.valueOf(),
 );
+
+const title = "Patterns in Leaves";
+const description = "Notes, essays, and projects by Keith Schumacher.";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
-    <!-- Adobe Fonts -->
-    <link rel="stylesheet" href="https://use.typekit.net/kgy5xxh.css" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Patterns in Leaves</title>
-  </head>
-  <body>
-    <a href="/">
-      <h1>Patterns in Leaves</h1>
-    </a>
-    <ul>
-      {
-        allPosts.map((post) => (
-          <li>
-            <a href={`/${post.id}`}>{post.data.title}</a>
-            <p>{post.data.description}</p>
-          </li>
-        ))
-      }
-    </ul>
-  </body>
-</html>
+<BaseLayout {title} {description}>
+  <ul>
+    {
+      allPosts.map((post) => (
+        <li>
+          <a href={`/${post.id}`}>{post.data.title}</a>
+          <p>{post.data.description}</p>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

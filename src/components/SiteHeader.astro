@@ -1,0 +1,16 @@
+---
+const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
+const onHome = pathname === "/";
+const onAbout = pathname === "/about";
+---
+
+<header class="site-header">
+  <a href="/">
+    <h1>Patterns in Leaves</h1>
+  </a>
+  <nav class="site-nav" aria-label="Site">
+    <a href="/" aria-current={onHome ? "page" : undefined}>Posts</a>
+    <span class="site-nav-sep" aria-hidden="true">·</span>
+    <a href="/about" aria-current={onAbout ? "page" : undefined}>About</a>
+  </nav>
+</header>
