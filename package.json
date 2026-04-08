@@ -22,5 +22,9 @@
   },
   "devDependencies": {
     "prettier-plugin-astro": "^0.14.1"
+  },
+  "overrides": {
+    "vite": "^7.3.2",
+    "yaml": "^2.8.3"
   }
 }
