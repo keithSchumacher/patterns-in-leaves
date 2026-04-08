@@ -1,0 +1,174 @@
+# Implementation Plan: Scroll-Grown L-System Interactive Plant Navigation  
+ Organic Scroll-Driven Plant as Visual Table of Contents  
+**PR Title (when complete):** feat: add scroll-grown L-system plant as interactive homepage navigation  
+
+
+## Tech Stack
+| Layer              | Choice                  | Version / Reason |
+|--------------------|-------------------------|------------------|
+| Framework          | Astro (current)        | Static-first + islands |
+| Drawing / Canvas   | p5.js                  | v2.2+ (WebGPU optional) – pure procedural, matches Python turtle |
+| Interactivity      | Pure p5.js objects     | No hybrid SVG, no Konva – keeps one mental model |
+| Scroll Handling    | Native + `requestAnimationFrame` | Throttled, no external libs |
+| Build / Deploy     | Astro + GitHub Pages   | Zero config change |
+| Testing            | Vitest + Playwright (visual) | For logic + end-to-end |
+
+**No new dependencies** except `p5` (installed via `npm install p5`).
+
+## High-Level Architecture
+- New page: `src/pages/plant.astro` (or embed as hero in `index.astro` via island)
+- One Astro island: `<PlantCanvas client:load />`
+- `src/components/PlantCanvas.astro` → imports `plant-sketch.ts`
+- All logic lives in TypeScript (`plant-sketch.ts` + `LSystem.ts` + `Leaf.ts` + `Boid.ts` placeholder)
+- Scroll listener scoped to the plant container only (doesn’t fight page scroll)
+
+## Phased Implementation
+Each phase is **self-contained**, has **clear acceptance criteria**, and **tests** (manual + automated where possible).  
+
+### Phase 0: Project Setup & Astro Integration
+**Goal:** Zero-risk scaffold that renders an empty p5 canvas on the site.
+
+**Tasks:**
+1. `npm install p5` (and `@types/p5` we want to use TS).
+2. Create `src/components/PlantCanvas.astro`.
+3. Create `src/lib/plant/plant-sketch.ts` with a minimal p5 instance (just `setup()` + `draw()` that clears to a green background).
+4. Add the component to a new page `src/pages/plant.astro` (or as hero in `index.astro` with `client:load`).
+5. Update `astro.config.mjs` if needed (Vite alias for `p5` – usually automatic).
+6. Add basic responsive CSS so canvas fills its container (max-height 80vh).
+
+**Tests / Acceptance Criteria:**
+- [ ] Site builds cleanly (`astro build` succeeds).
+- [ ] Visit `/plant` (or homepage) → green 800×600 canvas appears, no console errors.
+- [ ] Canvas resizes correctly on window resize and mobile.
+- [ ] Lighthouse score unchanged (Performance ≥ 95, Accessibility ≥ 100).
+- **Automated:** Add one Vitest test: `plant-sketch.ts` exports a valid p5 sketch function.
+
+---
+
+### Phase 1: Core L-System + Turtle Renderer
+**Goal:** Deterministic L-system that draws a full plant once (no scroll yet).
+
+**Tasks:**
+1. Create `src/lib/plant/LSystem.ts` (rules, axiom, generate string – reuse my Python logic, port to TS).
+2. Create `src/lib/plant/Turtle.ts` (interpret string → draw commands: forward, turn, push/pop stack).
+3. In `plant-sketch.ts`:
+   - Precompute one full plant on `setup()`.
+   - `draw()` renders the entire plant using `line()`, `bezierVertex()` for branches/leaves.
+4. Add simple styling: brown trunk, green leaves, configurable depth (start at 4–5 iterations).
+
+**Tests / Acceptance Criteria:**
+- [ ] Plant renders identically on every load (deterministic).
+- [ ] No lag at 60 fps even at depth 6.
+- [ ] Parameters exposed: `iterations`, `angle`, `lengthScale`, `leafSize`.
+- **Manual:** Toggle iterations via a temp slider → plant changes shape instantly.
+- **Automated:** Vitest unit tests for `LSystem.generate()` (3 test rulesets) and `Turtle` stack correctness.
+
+---
+
+### Phase 2: Scroll-Driven Progressive Growth (Deterministic)
+**Goal:** Plant grows smoothly as user scrolls the page.
+
+**Tasks:**
+1. Add scroll listener in `PlantCanvas.astro` (or inside sketch via p5 `windowResized` + global scroll).
+2. Compute `progress = Math.min(1, scrollY / (documentHeight - windowHeight))`.
+3. Modify `draw()`: render only up to `visibleSteps = Math.floor(totalSteps * progress)`.
+4. Use `requestAnimationFrame` loop (not raw scroll event) for smoothness.
+5. Add lerp for progress (0.1 easing) so growth feels organic.
+
+**Tests / Acceptance Criteria:**
+- [ ] Scrolling down → plant grows continuously from seed to full.
+- [ ] Scrolling up → plant shrinks smoothly (no jumps).
+- [ ] Growth stops exactly at 100% scroll (no overshoot).
+- [ ] 60 fps maintained on desktop + mobile.
+- **Automated:** Playwright test: scroll to 50% → assert number of drawn segments matches expected.
+- **Manual:** Plant only grows while the canvas is in viewport (IntersectionObserver).
+
+---
+
+### Phase 3: Leaf System + Click/Hover Interactivity
+**Goal:** Leaves are real clickable objects with hover states.
+
+**Tasks:**
+1. Create `src/lib/plant/Leaf.ts` class (position, angle, size, link URL/anchor, `display()`, `contains()`).
+2. During turtle interpretation, collect all leaves into an array (when rule produces leaf symbol).
+3. In `draw()`: loop leaves → display + check hover.
+4. `mousePressed()`: if hit → `scrollIntoView` (smooth) or `window.location`.
+5. Hover: change leaf color + `cursor('pointer')` when any leaf hovered.
+6. Activation delay: leaves only become clickable after they are “grown” (progress > leaf.spawnProgress).
+
+**Tests / Acceptance Criteria:**
+- [ ] Hover works on every leaf (color + cursor change).
+- [ ] Click navigates correctly to target sections (test with real anchors like `#about`, `#blog`).
+- [ ] No false positives on trunk/branches.
+- [ ] Touch support on mobile (pointer events).
+- **Automated:** Vitest for `Leaf.contains()` (bounding circle + point-in-polygon if used). Playwright click test on a leaf.
+- **Manual:** 10+ leaves, all interactive, no performance hit.
+
+---
+
+### Phase 4: Non-Deterministic / Parametric Growth
+**Goal:** Plant shape changes when scrolling up vs down 
+
+**Tasks:**
+1. Add `growthParams` object (angleNoise, lengthJitter, branchWobble, randomnessSeed).
+2. On scroll direction change (track previous scrollY):
+   - Scroll down → deterministic / lush (noise = 0).
+   - Scroll up → chaotic / wither (add Perlin noise to angles + lengths).
+3. `regeneratePlant(progress, params)` – called every frame or on significant scroll change (throttled).
+4. Keep previous plant state for smooth lerp between shapes.
+
+**Tests / Acceptance Criteria:**
+- [ ] Scroll down → plant becomes more symmetric/orderly.
+- [ ] Scroll up → plant twists, branches jitter, leaves droop.
+- [ ] Transition is smooth (no popping).
+- [ ] Still performant at 60 fps.
+- **Automated:** Vitest snapshot of params after direction change.
+- **Manual:** Rapid scroll up/down → plant “reacts” organically without lag.
+
+---
+
+### Phase 5: Extensibility Hooks + Boids Placeholder
+**Goal:** Make future additions (boids, particles, wind, etc.) trivial.
+
+**Tasks:**
+1. Create `src/lib/plant/Entity.ts` base class (update, display).
+2. Refactor: Plant, Leaf, and future Boid all extend Entity.
+3. Add `entities: Entity[]` array in sketch.
+4. Stub `Boid.ts` class (classic boids: separation, alignment, cohesion) – disabled by default, toggle via URL param `?debug=boids`.
+5. Add `windForce` that can optionally influence leaf angles.
+
+**Tests / Acceptance Criteria:**
+- [ ] Boids can be enabled via query param and run at 60 fps alongside plant.
+- [ ] No breaking changes to existing growth/leaves.
+- [ ] Clear comments: “Add new Entity here for particles, etc.”
+- **Automated:** Vitest for base Entity contract.
+
+---
+
+### Phase 6: Polish, Performance, Accessibility & Deploy
+**Tasks:**
+1. WebGPU renderer fallback (`createCanvas(w, h, WEBGPU)` if supported).
+2. Throttled resize + mobile touch optimizations.
+3. Fallback static image for SEO/crawlers (Astro `<Image>` below canvas with `noscript`).
+4. ARIA labels on container + keyboard shortcuts (↑/↓ for manual growth).
+5. Dark/light mode leaf colors that respect site theme.
+6. Final lighthouse + Playwright visual regression suite (3 viewport sizes).
+7. Deploy to GitHub Pages preview → test live.
+
+**Tests / Acceptance Criteria:**
+- [ ] 100/100 Lighthouse on `/plant`.
+- [ ] Works offline (PWA ready).
+- [ ] No console errors, no memory leaks after 2 min scrolling.
+- [ ] Mobile: iOS Safari + Android Chrome tested.
+
+
+## Post-Implementation Checklist (for PR)
+- [ ] Update homepage to feature the plant (or link prominently).
+- [ ] Add to `README.md`: “How the plant works” section + screenshot.
+- [ ] Document all tunable parameters in `plant-sketch.ts`.
+- [ ] One demo GIF in PR description.
+
+## Risks & Mitigations
+- Deep L-system lag → cap iterations at 7; offer “lite” mode.
+- Scroll fighting → all listeners scoped to plant container.
+- p5 types → use official `@types/p5`.
