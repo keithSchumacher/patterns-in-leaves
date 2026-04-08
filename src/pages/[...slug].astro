@@ -1,5 +1,6 @@
 ---
 import MarkdownPostLayout from "../layouts/MarkdownPostLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
 import { getCollection, render } from "astro:content";
 import "../styles/global.css";
 
@@ -15,10 +16,11 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 ---
 
-<MarkdownPostLayout>
-  <a href="/">
-    <h1>Patterns in Leaves</h1>
-  </a>
+<MarkdownPostLayout
+  title={`${entry.data.title} — Patterns in Leaves`}
+  description={entry.data.description}
+>
+  <SiteHeader />
   <h1>{entry.data.title}</h1>
   <Content />
 </MarkdownPostLayout>
